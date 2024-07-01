@@ -112,7 +112,7 @@ loadMoreButton.addEventListener('click', () => {
         loadPokemonItens(offset, limit);
     }
 });
-
+// teste
 typeFilter.addEventListener('change', (event) => {
     const selectedType = event.target.value;
     filterPokemonsByType(selectedType);
