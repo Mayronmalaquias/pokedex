@@ -4,14 +4,14 @@
 }
 
 body {
-    background-color: #f6f8fc;
+    background-image: url(../img/pokefundo.jpg);
 }
 
 .content {
     width: 100vw;
     height: 100vh;
     padding: 1rem;
-    background-color: #fff;
+    background-color: white;
 }
 
 @media screen and (min-width: 992px) {
@@ -21,4 +21,18 @@ body {
         margin: 1rem auto;
         border-radius: 1rem;
     }
+}
+
+.filter {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#typeFilter {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid #ccc;
+    background-color: #fff;
 }

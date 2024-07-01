@@ -18,13 +18,38 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500;700&display=swap" rel="stylesheet">
 
     <!-- Nosso CSS -->
-    <link rel="stylesheet" href="/assets/css/global.css">
-    <link rel="stylesheet" href="/assets/css/pokedex.css">
+    <link rel="stylesheet" href="./assets/css/global.css">
+    <link rel="stylesheet" href="./assets/css/pokedex.css">
 </head>
 
 <body>
     <section class="content">
         <h1>Pokedex</h1>
+
+        <div class="filter">
+            <label for="typeFilter">Filtrar por tipo:</label>
+            <select id="typeFilter">
+                <option value="all">Todos</option>
+                <option value="normal">Normal</option>
+                <option value="grass">Grama</option>
+                <option value="fire">Fogo</option>
+                <option value="water">Água</option>
+                <option value="electric">Elétrico</option>
+                <option value="ice">Gelo</option>
+                <option value="ground">Terrestre</option>
+                <option value="flying">Voador</option>
+                <option value="poison">Venenoso</option>
+                <option value="fighting">Lutador</option>
+                <option value="psychic">Psíquico</option>
+                <option value="dark">Sombrio</option>
+                <option value="rock">Pedra</option>
+                <option value="bug">Inseto</option>
+                <option value="ghost">Fantasma</option>
+                <option value="steel">Aço</option>
+                <option value="dragon">Dragão</option>
+                <option value="fairy">Fada</option>
+            </select>
+        </div>
 
         <ol id="pokemonList" class="pokemons">
             <!-- ..... Pokemons here ..... -->
@@ -38,9 +63,10 @@
     </section>
 
     <!-- Nosso JS -->
-    <script src="/assets/js/pokemon-model.js"></script>
-    <script src="/assets/js/poke-api.js"></script>
-    <script src="/assets/js/main.js"></script>
+    <script src="./assets/js/pokemon-model.js"></script>
+    <script src="./assets/js/poke-api.js"></script>
+    <script src="./assets/js/main.js"></script>
 </body>
+
 
 </html>
