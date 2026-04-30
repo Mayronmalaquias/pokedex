@@ -1,72 +1,155 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokedex</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <!-- Normalize CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
-        integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Font Roboto -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500;700&display=swap" rel="stylesheet">
+  <title>Professional Pokédex</title>
 
-    <!-- Nosso CSS -->
-    <link rel="stylesheet" href="./assets/css/global.css">
-    <link rel="stylesheet" href="./assets/css/pokedex.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="./assets/css/global.css">
+  <link rel="stylesheet" href="./assets/css/pokedex.css">
 </head>
 
 <body>
-    <section class="content">
-        <h1>Pokedex</h1>
+  <main class="app">
+    <section class="hero">
+      <div class="hero-content">
+        <span class="hero-badge">Powered by PokéAPI</span>
 
-        <div class="filter">
-            <label for="typeFilter">Filtrar por tipo:</label>
-            <select id="typeFilter">
-                <option value="all">Todos</option>
-                <option value="normal">Normal</option>
-                <option value="grass">Grama</option>
-                <option value="fire">Fogo</option>
-                <option value="water">Água</option>
-                <option value="electric">Elétrico</option>
-                <option value="ice">Gelo</option>
-                <option value="ground">Terrestre</option>
-                <option value="flying">Voador</option>
-                <option value="poison">Venenoso</option>
-                <option value="fighting">Lutador</option>
-                <option value="psychic">Psíquico</option>
-                <option value="dark">Sombrio</option>
-                <option value="rock">Pedra</option>
-                <option value="bug">Inseto</option>
-                <option value="ghost">Fantasma</option>
-                <option value="steel">Aço</option>
-                <option value="dragon">Dragão</option>
-                <option value="fairy">Fada</option>
-            </select>
+        <h1>Regional Pokédex</h1>
+
+        <p>
+          Select a region, explore a popular team from that generation and browse
+          the regional Pokédex with stats, abilities and moves.
+        </p>
+
+        <div class="hero-stats">
+          <div>
+            <strong>9</strong>
+            <span>Regions</span>
+          </div>
+
+          <div>
+            <strong>18</strong>
+            <span>Types</span>
+          </div>
+
+          <div>
+            <strong>API</strong>
+            <span>Real Pokémon data</span>
+          </div>
         </div>
-
-        <ol id="pokemonList" class="pokemons">
-            <!-- ..... Pokemons here ..... -->
-        </ol>
-
-        <div class="pagination">
-            <button id="loadMoreButton" type="button">
-                Load More
-            </button>
-        </div>
+      </div>
     </section>
-     
-    <!-- eNosso JS -->
-    <script src="./assets/js/pokemon-model.js"></script>
-    <script src="./assets/js/poke-api.js"></script>
-    <script src="./assets/js/main.js"></script>
-</body>
 
+    <section class="content">
+      <div class="toolbar">
+        <div class="filter-box">
+          <label for="regionFilter">Select region</label>
+
+          <select id="regionFilter">
+            <option value="1">Kanto - Generation I</option>
+            <option value="2">Johto - Generation II</option>
+            <option value="3">Hoenn - Generation III</option>
+            <option value="4">Sinnoh - Generation IV</option>
+            <option value="5">Unova - Generation V</option>
+            <option value="6">Kalos - Generation VI</option>
+            <option value="7">Alola - Generation VII</option>
+            <option value="8">Galar - Generation VIII</option>
+            <option value="9">Paldea - Generation IX</option>
+          </select>
+        </div>
+
+        <div class="search-box">
+          <label for="searchInput">Search Pokémon</label>
+
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search by name or number..."
+            autocomplete="off"
+          >
+        </div>
+
+        <div class="filter-box">
+          <label for="typeFilter">Filter by type</label>
+
+          <select id="typeFilter">
+            <option value="all">All types</option>
+            <option value="normal">Normal</option>
+            <option value="grass">Grass</option>
+            <option value="fire">Fire</option>
+            <option value="water">Water</option>
+            <option value="electric">Electric</option>
+            <option value="ice">Ice</option>
+            <option value="ground">Ground</option>
+            <option value="flying">Flying</option>
+            <option value="poison">Poison</option>
+            <option value="fighting">Fighting</option>
+            <option value="psychic">Psychic</option>
+            <option value="dark">Dark</option>
+            <option value="rock">Rock</option>
+            <option value="bug">Bug</option>
+            <option value="ghost">Ghost</option>
+            <option value="steel">Steel</option>
+            <option value="dragon">Dragon</option>
+            <option value="fairy">Fairy</option>
+          </select>
+        </div>
+
+        <button id="clearButton" type="button" class="clear-button">
+          Clear
+        </button>
+      </div>
+
+      <section id="teamSection" class="team-section"></section>
+
+      <div class="list-header">
+        <div>
+          <span class="section-label">Regional Pokédex</span>
+          <h2 id="regionTitle">Kanto Region</h2>
+        </div>
+
+        <p id="pokemonCount">Loading Pokémon...</p>
+      </div>
+
+      <div id="loadingState" class="loading-state">
+        Loading Pokémon data...
+      </div>
+
+      <ol id="pokemonList" class="pokemons"></ol>
+
+      <div id="emptyState" class="empty-state hidden">
+        <h3>No Pokémon found</h3>
+        <p>Try another name, number, region or type filter.</p>
+      </div>
+
+      <div class="pagination">
+        <button id="loadMoreButton" type="button">
+          Load More
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <div id="modalRoot"></div>
+
+  <script src="./assets/js/pokemon-model.js"></script>
+  <script src="./assets/js/poke-api.js"></script>
+  <script src="./assets/js/main.js"></script>
+</body>
 
 </html>

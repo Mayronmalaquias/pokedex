@@ -1,39 +1,95 @@
+const pokeApi = {};
+const baseUrl = 'https://pokeapi.co/api/v2';
 
-const pokeApi = {}
+function formatPokemonName(name) {
+  return String(name)
+    .split('-')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+function getResourceIdFromUrl(url) {
+  const parts = url.split('/').filter(Boolean);
+  return Number(parts[parts.length - 1]);
+}
+
+function getBestPokemonImage(pokeDetail) {
+  return (
+    pokeDetail.sprites.other['official-artwork'].front_default ||
+    pokeDetail.sprites.other.dream_world.front_default ||
+    pokeDetail.sprites.front_default ||
+    ''
+  );
+}
 
 function convertPokeApiDetailToPokemon(pokeDetail) {
-    const pokemon = new Pokemon()
-    pokemon.number = pokeDetail.id
-    pokemon.name = pokeDetail.name
-    
-    const types = pokeDetail.types.map((typeSlot) => typeSlot.type.name)
-    const [type] = types
+  const pokemon = new Pokemon();
 
-    pokemon.types = types
-    pokemon.type = type
+  const types = pokeDetail.types.map((typeSlot) => typeSlot.type.name);
+  const [mainType] = types;
 
-    pokemon.photo = pokeDetail.sprites.other.dream_world.front_default
+  pokemon.number = pokeDetail.id;
+  pokemon.name = formatPokemonName(pokeDetail.name);
+  pokemon.type = mainType;
+  pokemon.types = types;
+  pokemon.photo = getBestPokemonImage(pokeDetail);
+  pokemon.height = pokeDetail.height / 10;
+  pokemon.weight = pokeDetail.weight / 10;
+  pokemon.baseExperience = pokeDetail.base_experience;
 
-    return pokemon
-    
+  pokemon.abilities = pokeDetail.abilities.map((abilitySlot) =>
+    formatPokemonName(abilitySlot.ability.name)
+  );
 
+  pokemon.stats = pokeDetail.stats.map((statItem) => ({
+    name: formatPokemonName(statItem.stat.name),
+    value: statItem.base_stat,
+  }));
+
+  pokemon.moves = pokeDetail.moves
+    .slice(0, 18)
+    .map((moveItem) => formatPokemonName(moveItem.move.name));
+
+  return pokemon;
 }
 
-pokeApi.getPokemonDetail = (pokemon) => {
-    return fetch(pokemon.url)
-        .then((response) => response.json())
-        .then(convertPokeApiDetailToPokemon)
-}
+pokeApi.getPokemonByNameOrId = async (searchValue) => {
+  const value = String(searchValue).trim().toLowerCase();
 
-pokeApi.getPokemons = (offset = 0, limit = 5) => {
-    const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`
-   
-// teste
-    return fetch(url)
-        .then((response) => response.json())
-        .then((jsonBody) => jsonBody.results)
-        .then((pokemons) => pokemons.map(pokeApi.getPokemonDetail))
-        .then((detailRequests) => Promise.all(detailRequests))
-        .then((pokemonsDetails) => pokemonsDetails)
-     
-}
+  const response = await fetch(`${baseUrl}/pokemon/${value}`);
+
+  if (!response.ok) {
+    throw new Error(`Pokémon not found: ${value}`);
+  }
+
+  const data = await response.json();
+
+  return convertPokeApiDetailToPokemon(data);
+};
+
+pokeApi.getPokemonByGeneration = async (generationId) => {
+  const response = await fetch(`${baseUrl}/generation/${generationId}`);
+
+  if (!response.ok) {
+    throw new Error('Could not load generation.');
+  }
+
+  const generation = await response.json();
+
+  const species = generation.pokemon_species
+    .map((item) => ({
+      name: item.name,
+      id: getResourceIdFromUrl(item.url),
+    }))
+    .sort((a, b) => a.id - b.id);
+
+  const requests = species.map((item) =>
+    pokeApi.getPokemonByNameOrId(item.name).catch(() => null)
+  );
+
+  const results = await Promise.all(requests);
+
+  return results
+    .filter(Boolean)
+    .sort((a, b) => a.number - b.number);
+};

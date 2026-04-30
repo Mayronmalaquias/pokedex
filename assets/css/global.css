@@ -1,40 +1,35 @@
 * {
-    font-family: 'Roboto', sans-serif;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-    background-image: url(../img/pokefundo.jpg);
+  min-height: 100vh;
+  font-family: 'Inter', Arial, sans-serif;
+  background: #0f172a;
+  color: #e5e7eb;
 }
 
-.content {
-    width: 100vw;
-    height: 100vh;
-    padding: 1rem;
-    background-color: white;
+button,
+input,
+select {
+  font-family: inherit;
 }
 
-@media screen and (min-width: 992px) {
-    .content {
-        max-width: 992px;
-        height: auto;
-        margin: 1rem auto;
-        border-radius: 1rem;
-    }
+button {
+  cursor: pointer;
 }
 
-.filter {
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+ol,
+ul {
+  list-style: none;
 }
 
-#typeFilter {
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    border: 1px solid #ccc;
-    background-color: #fff;
+.hidden {
+  display: none !important;
 }
-
-/* s  */
